@@ -4,6 +4,8 @@ class PostsController < ApplicationController
   expose_decorated(:post, attributes: :post_params)
   expose(:tag_cloud) { [] }
 
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+
   def index
   end
 
@@ -44,6 +46,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     return if %w{mark_archived}.include? action_name

@@ -10,3 +10,21 @@
   .post__tags-list.tagsinput
     - post.tags_array.each do |tag|
       = content_tag :span, tag, class: 'tag'
+%br
+%p
+  %br
+  %br
+  %b Comments:
+  %br
+  - @post.comments.each do |comment|
+    %tr
+      %td= comment.content
+      %td= link_to 'Show', post_comment_path(comment.post_id, comment.id)
+      %td= link_to 'Edit', edit_post_comment_path(comment.post_id, comment.id)
+      %td= link_to 'Delete', post_comment_path(comment.post_id, comment.id), :method => :delete, :data => { :confirm => 'Delete comment?' }
+      %br
+
+%br
+= link_to 'Add a new comment', new_post_comment_path(@post)
+%br
+= link_to 'Back', post_path
